@@ -11,20 +11,15 @@ import androidx.core.app.ActivityCompat;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
+import com.github.hiteshsondhi88.sampleffmpeg.databinding.ActivityHomeBinding;
 
 public class Home extends Activity implements View.OnClickListener {
 
@@ -33,22 +28,16 @@ public class Home extends Activity implements View.OnClickListener {
 
     public FFmpeg ffmpeg;
 
-    @InjectView(R.id.command)
-    EditText commandEditText;
-
-    @InjectView(R.id.command_output)
-    LinearLayout outputLayout;
-
-    @InjectView(R.id.run_command)
-    Button runButton;
-
     private ProgressDialog progressDialog;
+
+    private ActivityHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        ButterKnife.inject(this);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         loadFFMpegBinary();
         initUI();
@@ -59,7 +48,7 @@ public class Home extends Activity implements View.OnClickListener {
     }
 
     private void initUI() {
-        runButton.setOnClickListener(this);
+        binding.runCommand.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle(null);
@@ -101,7 +90,7 @@ public class Home extends Activity implements View.OnClickListener {
 
                 @Override
                 public void onStart() {
-                    outputLayout.removeAllViews();
+                    binding.commandOutput.removeAllViews();
 
                     Log.d(TAG, "Started command : ffmpeg " + command);
                     progressDialog.setMessage("Processing...");
@@ -122,7 +111,7 @@ public class Home extends Activity implements View.OnClickListener {
     private void addTextViewToLayout(String text) {
         TextView textView = new TextView(Home.this);
         textView.setText(text);
-        outputLayout.addView(textView);
+        binding.commandOutput.addView(textView);
     }
 
     private void showUnsupportedExceptionDialog() {
@@ -143,16 +132,14 @@ public class Home extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.run_command:
-                String cmd = commandEditText.getText().toString();
-                String[] command = cmd.split(" ");
-                if (command.length != 0) {
-                    execFFmpegBinary(command);
-                } else {
-                    Toast.makeText(Home.this, getString(R.string.empty_command_toast), Toast.LENGTH_LONG).show();
-                }
-                break;
+        if (v.getId() == R.id.run_command) {
+            String cmd = binding.command.getText().toString();
+            String[] command = cmd.split(" ");
+            if (command.length != 0) {
+                execFFmpegBinary(command);
+            } else {
+                Toast.makeText(Home.this, getString(R.string.empty_command_toast), Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
