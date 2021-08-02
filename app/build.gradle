@@ -13,6 +13,10 @@ android {
         versionName rootProject.ext.versionName as String
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     sourceSets.main {
         assets.srcDirs = ['assets']
         jniLibs.srcDirs = ['libs']
@@ -32,7 +36,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.jakewharton:butterknife:5.1.2'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation 'com.squareup.assertj:assertj-android:1.0.0'
     implementation project(':FFmpegAndroid')
