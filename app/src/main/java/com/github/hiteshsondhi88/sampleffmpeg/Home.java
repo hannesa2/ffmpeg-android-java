@@ -60,11 +60,11 @@ public class Home extends Activity implements View.OnClickListener {
             ffmpeg.loadBinary(new LoadBinaryResponseHandler() {
                 @Override
                 public void onFailure() {
-                    showUnsupportedExceptionDialog();
+                    showUnsupportedExceptionDialog("onFailure");
                 }
             });
         } catch (FFmpegNotSupportedException e) {
-            showUnsupportedExceptionDialog();
+            showUnsupportedExceptionDialog(e.getMessage());
         }
     }
 
@@ -114,10 +114,10 @@ public class Home extends Activity implements View.OnClickListener {
         binding.commandOutput.addView(textView);
     }
 
-    private void showUnsupportedExceptionDialog() {
+    private void showUnsupportedExceptionDialog(String message) {
         new AlertDialog.Builder(Home.this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(getString(R.string.device_not_supported))
+                .setTitle(message)
                 .setMessage(getString(R.string.device_not_supported_message))
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

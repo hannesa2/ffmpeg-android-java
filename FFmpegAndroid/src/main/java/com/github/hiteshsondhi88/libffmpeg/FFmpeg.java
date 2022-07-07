@@ -36,18 +36,18 @@ public class FFmpeg implements FFmpegInterface {
 
     @Override
     public void loadBinary(FFmpegLoadBinaryResponseHandler ffmpegLoadBinaryResponseHandler) throws FFmpegNotSupportedException {
-        String cpuArchNameFromAssets = null;
+        String cpuArchNameFromAssets;
         switch (CpuArchHelper.getCpuArch()) {
-            case x86:
+            case x86_64:
                 Timber.i("Loading FFmpeg for x86 CPU");
-                cpuArchNameFromAssets = "x86";
+                cpuArchNameFromAssets = CpuArchHelper.getCpuArch().getValue();
                 break;
-            case ARMv7:
+            case armv7:
                 Timber.i("Loading FFmpeg for armv7 CPU");
-                cpuArchNameFromAssets = "armeabi-v7a";
+                cpuArchNameFromAssets = CpuArchHelper.getCpuArch().getValue();
                 break;
-            case NONE:
-                throw new FFmpegNotSupportedException("Device not supported");
+            default:
+                throw new FFmpegNotSupportedException("Device not supported " + CpuArchHelper.getCpuArch());
         }
 
         if (!TextUtils.isEmpty(cpuArchNameFromAssets)) {
