@@ -9,8 +9,8 @@ android {
         applicationId "com.github.hiteshsondhi88.sampleffmpeg"
         minSdkVersion rootProject.ext.minSdkVersion as Integer
         targetSdkVersion rootProject.ext.targetSdkVersion as Integer
-        versionCode rootProject.ext.versionCode as Integer
-        versionName rootProject.ext.versionName as String
+        versionCode getGitCommitCount()
+        versionName getTag()
     }
 
     buildFeatures {
@@ -41,4 +41,14 @@ dependencies {
     implementation project(':FFmpegAndroid')
 
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+}
+
+static def getGitCommitCount() {
+    def process = "git rev-list HEAD --count".execute()
+    return process.text.toInteger()
+}
+
+static def getTag() {
+    def process = "git describe --tags".execute()
+    return process.text.toString().trim()
 }
