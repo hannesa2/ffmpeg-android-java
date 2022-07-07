@@ -1,7 +1,5 @@
 package com.github.hiteshsondhi88.libffmpeg;
 
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -10,11 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-class Util {
+import timber.log.Timber;
 
-    static boolean isDebug(Context context) {
-        return (0 != (context.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
-    }
+class Util {
 
     static void close(InputStream inputStream) {
         if (inputStream != null) {
@@ -47,7 +43,7 @@ class Util {
             }
             return sb.toString();
         } catch (IOException e) {
-            Log.e("error converting input stream to string", e);
+            Timber.e(e);
         }
         return null;
     }

@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 
 import java.io.File;
 
+import timber.log.Timber;
+
 class FFmpegLoadLibraryAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     private final String cpuArchNameFromAssets;
@@ -31,12 +33,12 @@ class FFmpegLoadLibraryAsyncTask extends AsyncTask<Void, Void, Boolean> {
             // make file executable
             if (isFileCopied) {
                 if(!ffmpegFile.canExecute()) {
-                    Log.d("FFmpeg is not executable, trying to make it executable ...");
+                    Timber.d("FFmpeg is not executable, trying to make it executable ...");
                     if (ffmpegFile.setExecutable(true)) {
                         return true;
                     }
                 } else {
-                    Log.d("FFmpeg is executable");
+                    Timber.d("FFmpeg is executable");
                     return true;
                 }
             }

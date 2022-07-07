@@ -2,6 +2,8 @@ package com.github.hiteshsondhi88.libffmpeg;
 
 import java.io.IOException;
 
+import timber.log.Timber;
+
 class ShellCommand {
 
     Process run(String[] commandString) {
@@ -9,7 +11,7 @@ class ShellCommand {
         try {
             process = Runtime.getRuntime().exec(commandString);
         } catch (IOException e) {
-            Log.e("Exception while trying to run: " + commandString, e);
+            Timber.e(e, "Exception while trying to run: %s", commandString);
         }
         return process;
     }
@@ -30,7 +32,7 @@ class ShellCommand {
                 }
             }
         } catch (InterruptedException e) {
-            Log.e("Interrupt exception", e);
+            Timber.e(e);
         } finally {
             Util.destroyProcess(process);
         }

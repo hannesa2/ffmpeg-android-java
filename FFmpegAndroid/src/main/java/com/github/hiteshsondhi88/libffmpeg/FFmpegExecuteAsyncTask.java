@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeoutException;
 
+import timber.log.Timber;
+
 class FFmpegExecuteAsyncTask extends AsyncTask<Void, String, CommandResult> {
 
     private final String[] cmd;
@@ -39,14 +41,14 @@ class FFmpegExecuteAsyncTask extends AsyncTask<Void, String, CommandResult> {
             if (process == null) {
                 return CommandResult.getDummyFailureResponse();
             }
-            Log.d("Running publishing updates method");
+            Timber.d("Running publishing updates method");
             checkAndUpdateProcess();
             return CommandResult.getOutputFromProcess(process);
         } catch (TimeoutException e) {
-            Log.e("FFmpeg timed out", e);
+            Timber.e(e, "FFmpeg timed out");
             return new CommandResult(false, e.getMessage());
         } catch (Exception e) {
-            Log.e("Error running FFmpeg", e);
+            Timber.e(e, "Error running FFmpeg");
         } finally {
             Util.destroyProcess(process);
         }
@@ -93,7 +95,7 @@ class FFmpegExecuteAsyncTask extends AsyncTask<Void, String, CommandResult> {
                         return;
                     }
 
-                    output += line+"\n";
+                    output += line + "\n";
                     publishProgress(line);
                 }
             } catch (IOException e) {

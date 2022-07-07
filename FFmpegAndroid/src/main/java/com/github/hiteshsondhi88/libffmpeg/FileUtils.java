@@ -1,6 +1,7 @@
 package com.github.hiteshsondhi88.libffmpeg;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,6 +13,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 import java.util.Map;
+
+import timber.log.Timber;
 
 class FileUtils {
 
@@ -41,7 +44,7 @@ class FileUtils {
 			
 			return true;
 		} catch (IOException e) {
-			Log.e("issue in coping binary from assets to data. ", e);
+            Timber.e(e, "issue in coping binary from assets to data. ");
 		}
         return false;
 	}
@@ -72,7 +75,7 @@ class FileUtils {
             is = new BufferedInputStream(new FileInputStream(file));
             return SHA1(is);
         } catch (IOException e) {
-            Log.e(e);
+            Timber.e(e);
         } finally {
             Util.close(is);
         }
@@ -94,9 +97,9 @@ class FileUtils {
             }
             return formatter.toString();
         } catch (NoSuchAlgorithmException e) {
-            Log.e(e);
+            Timber.e(e);
         } catch (IOException e) {
-            Log.e(e);
+            Timber.e(e);
         } finally {
             Util.close(is);
         }
