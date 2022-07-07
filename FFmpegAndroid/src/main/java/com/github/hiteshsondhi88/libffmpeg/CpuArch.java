@@ -3,24 +3,25 @@ package com.github.hiteshsondhi88.libffmpeg;
 import android.text.TextUtils;
 
 enum CpuArch {
-    x86("0dd4dbad305ff197a1ea9e6158bd2081d229e70e"),
-    ARMv7("871888959ba2f063e18f56272d0d98ae01938ceb"),
+    x86_64("x86_64"),
+    armv7("armeabi-v7a"),
+    arm64_v8a("arm64-v8a"),
     NONE(null);
 
-    private String sha1;
+    private final String value;
 
     CpuArch(String sha1) {
-        this.sha1 = sha1;
+        this.value = sha1;
     }
 
-    String getSha1(){
-        return sha1;
+    String getValue(){
+        return value;
     }
 
-    static CpuArch fromString(String sha1) {
-        if (!TextUtils.isEmpty(sha1)) {
+    static CpuArch fromString(String value) {
+        if (!TextUtils.isEmpty(value)) {
             for (CpuArch cpuArch : CpuArch.values()) {
-                if (sha1.equalsIgnoreCase(cpuArch.sha1)) {
+                if (value.equalsIgnoreCase(cpuArch.value)) {
                     return cpuArch;
                 }
             }
