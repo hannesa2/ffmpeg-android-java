@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion as Integer
+    ndkVersion "24.0.8215888"
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion as Integer
@@ -10,11 +11,17 @@ android {
         versionName rootProject.ext.versionName as String
     }
 
-    sourceSets.main {
-        assets.srcDirs = ['assets']
-        jni.srcDirs = [] //disable automatic ndk-build
-        jniLibs.srcDirs = ['libs']
+    externalNativeBuild {
+        ndkBuild {
+            path "src/main/jni/Android.mk"
+        }
     }
+
+//    sourceSets.main {
+//        assets.srcDirs = ['assets']
+//        jni.srcDirs = [] //disable automatic ndk-build
+//        jniLibs.srcDirs = ['libs']
+//    }
 
     buildTypes {
         release {
