@@ -2,10 +2,12 @@ package com.github.hiteshsondhi88.libffmpeg;
 
 import android.os.Build;
 
+import timber.log.Timber;
+
 class CpuArchHelper {
     
     static CpuArch getCpuArch() {
-        Log.d("Build.CPU_ABI : " + Build.CPU_ABI);
+        Timber.d("Build.CPU_ABI : " + Build.CPU_ABI);
         // check if device is x86 or x86_64
         if (Build.CPU_ABI.equals(getx86CpuAbi()) || Build.CPU_ABI.equals(getx86_64CpuAbi())) {
             return CpuArch.x86;
