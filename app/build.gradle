@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation 'com.squareup.assertj:assertj-android:1.2.0'
     implementation project(':FFmpegAndroid')
 
