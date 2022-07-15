@@ -31,6 +31,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "com.github.AppDevNext.Logcat:LogcatCoreLib:2.11.1"
+    api "com.github.AppDevNext.Logcat:LogcatCoreLib:2.11.2"
     androidTestImplementation 'com.squareup.assertj:assertj-android:1.2.0'
 }
