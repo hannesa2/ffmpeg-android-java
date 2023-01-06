@@ -30,7 +30,7 @@ jobs:
       - name: Checks
         run: ./gradlew check
       - name: Archive Lint report
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: Lint-report
           path: app/build/reports/lint-results.html
@@ -58,7 +58,7 @@ jobs:
 #          tag: default
 #          abi: x86
 #      - name: Archive Espresso results
-#        uses: actions/upload-artifact@v3.1.0
+#        uses: actions/upload-artifact@v3.1.2
 #        with:
 #          name: Espresso-report
 #          path: app/build/reports/androidTests/connected
